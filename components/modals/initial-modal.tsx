@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -24,8 +25,10 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { FileUpload } from "@/components/file-upload";
 
+// create form schema using zod
+// zod: validator and type declaration handler
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Server name is required",
@@ -35,25 +38,32 @@ const formSchema = z.object({
   }),
 });
 
+// Main function
 export const InitialModal = () => {
+  // Solve hydration by using useEffect
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // use react hook useForm
   const form = useForm({
+    // Add resolver using zod and the schema
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       imageUrl: "",
     },
   });
+
   const isLoading = form.formState.isSubmitting;
 
+  // onSubmit event handler using z.infer
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
 
+  // this solve hydration
   if (!isMounted) {
     return null;
   }
@@ -74,8 +84,23 @@ export const InitialModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
               <div className="flex item-center justify-center text-center">
-                TODO: Image Upload
+                {/* This is for upload image */}
+                <FormField
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload endpoint="serverImage"
+                            value={field.value}
+                            onChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
+              {/* This is for server name */}
               <FormField
                 control={form.control}
                 name="name"
@@ -97,6 +122,7 @@ export const InitialModal = () => {
                 )}
               />
             </div>
+            {/* This is for button */}
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button disabled={isLoading} variant="primary">
                 Create
