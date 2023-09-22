@@ -7,13 +7,17 @@ import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
+    // Get the data from request
     const { name, imageUrl } = await req.json();
+
+    // Get the current profile data
     const profile = await currentProfile();
+
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Create the server
+    // Create the server using db (prisma client)
     const server = await db.server.create({
       data: {
         // fields:[profileId] , reference:[id]
@@ -26,6 +30,7 @@ export async function POST(req: Request) {
           create: [{ name: "general", profileId: profile.id }],
         },
         members: {
+          // Get memberRole from prisma client
           create: [{ profileId: profile.id, role: MemberRole.ADMIN }],
         },
       },

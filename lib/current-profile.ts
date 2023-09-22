@@ -1,5 +1,4 @@
 import { auth } from "@clerk/nextjs";
-
 import { db } from "@/lib/db";
 
 export const currentProfile = async () => {
@@ -9,7 +8,7 @@ export const currentProfile = async () => {
     return null;
   }
 
-  // Find the current profile
+  // Get the current profile
   const profile = await db.profile.findUnique({
     where: {
       userId,
