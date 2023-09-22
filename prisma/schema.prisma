@@ -8,6 +8,7 @@ datasource db {
   relationMode = "prisma"
 }
 
+// Create all the model
 model Profile {
   id String @id @default(uuid())
   userId String @unique 
@@ -40,6 +41,7 @@ model Server {
 
   @@index([profileId])
 }
+
 
 enum MemberRole {
   ADMIN
