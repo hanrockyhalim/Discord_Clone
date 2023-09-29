@@ -1,3 +1,5 @@
+// This is for add new server 
+
 "use client";
 
 import { Plus } from "lucide-react";

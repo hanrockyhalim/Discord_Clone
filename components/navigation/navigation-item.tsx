@@ -1,3 +1,5 @@
+// This is for channel button
+
 "use client";
 
 import Image from "next/image";
@@ -16,6 +18,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
   const params = useParams();
   const router = useRouter();
 
+  // Use useRouter for onClick function
   const onClick = () => {
     router.push(`/servers/${id}`);
   };
