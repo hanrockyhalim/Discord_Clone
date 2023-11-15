@@ -30,7 +30,7 @@ export async function POST(req: Request) {
           create: [{ name: "general", profileId: profile.id }],
         },
         members: {
-          // Get memberRole from prisma client
+          // Give the creator Admin role
           create: [{ profileId: profile.id, role: MemberRole.ADMIN }],
         },
       },

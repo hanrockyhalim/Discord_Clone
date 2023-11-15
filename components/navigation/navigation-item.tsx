@@ -1,4 +1,5 @@
 // This is for channel button
+// Put inside Navigation Sidebar
 
 "use client";
 

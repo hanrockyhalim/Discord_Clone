@@ -1,4 +1,5 @@
 // This is for add new server
+// Put it inside Navigation Sidebar
 
 "use client";
 
