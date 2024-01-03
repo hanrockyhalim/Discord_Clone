@@ -45,7 +45,6 @@ export const CreateServerModal = () => {
   const { isOpen, onClose, type } = useModal();
   const router = useRouter();
 
-
   const isModalOpen = isOpen && type === "createServer";
 
   // use react hook useForm
